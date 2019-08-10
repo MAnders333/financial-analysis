@@ -158,7 +158,7 @@ class FinancialAnalyzer:
 
 if __name__ == "__main__":
     path = "/Users/marcanders/Desktop/Projects/Programming/FinancialAnalysis/monthly_budget.xlsx" # Add the path to your Excel file here
-    url = os.environ.get("BANK_URL") # Add your bank's url here
+    url = os.environ.get("BK_URL") # Add your bank's url here
     username = os.environ.get("BK_UN") # Add your bank's username here
     password = os.environ.get("BK_PW") # Add your bank's password here
     if len(sys.argv) > 1:
