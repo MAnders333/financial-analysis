@@ -121,14 +121,14 @@ class FinancialAnalyzer:
         current_year = datetime.date(datetime.now()).year
         bank_balance = self.balance1 + self.balance2
         investments = 0 # Fixed rate of investments each month
-        assets_total = self.cash + self.balance1 + self.balance2 + investments
+        assets_total = self.cash + bank_balance + investments
 
         # Checks whether this is the first entry (so cash flow and other changes in assets cannot be calculated)
         if self.last_row == 1:
             cashflow, bank_cashflow, investments_change, assets_total_change, assets_rel_change = 0
         else:
-            cashflow = self.cash - float(self.sheet.cell(self.last_row, 4).value)
-            bank_cashflow = bank_balance - float(self.sheet.cell(self.last_row, 6).value)
+            cashflow = self.cash - float(self.sheet.cell(self.last_row, 3).value)
+            bank_cashflow = bank_balance - float(self.sheet.cell(self.last_row, 5).value)
             investments_change = investments - float(self.sheet.cell(self.last_row, 7).value)
             assets_total_change = assets_total - float(self.sheet.cell(self.last_row, 9).value)
             assets_rel_change = assets_total_change / float(self.sheet.cell(self.last_row, 9).value)
@@ -157,7 +157,7 @@ class FinancialAnalyzer:
 
 
 if __name__ == "__main__":
-    path = "/Users/marcanders/Desktop/monthly_budget.xlsx" # Add the path to your Excel file here
+    path = "/Users/marcanders/Desktop/Projects/Programming/FinancialAnalysis/monthly_budget.xlsx" # Add the path to your Excel file here
     url = os.environ.get("BANK_URL") # Add your bank's url here
     username = os.environ.get("BK_UN") # Add your bank's username here
     password = os.environ.get("BK_PW") # Add your bank's password here
