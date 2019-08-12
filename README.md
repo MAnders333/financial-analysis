@@ -1,3 +1,3 @@
 # Financial Analysis
 
-This script visits the websites of my banks, logs in, scrapes the current balance and adds it to an Excel sheet, that analysis my income and costs.
+Python script that scrapes my bank balance from my bank's website, adds the information to an Excel sheet and analyses my monthly income and expenses.
