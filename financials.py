@@ -85,24 +85,23 @@ class FinancialAnalyzer:
         self.driver.get(url)
 
         # Waits for a specified element to render to make sure the page is fully loaded
-        WebDriverWait(self.driver, 15).until(EC.presence_of_element_located((By.XPATH, """//*[@id="vrkennungalias"]"""))) # Change the xpath according to the element's xpath of your banks website
+        WebDriverWait(self.driver, 15).until(EC.presence_of_element_located((By.XPATH, """//*[@id="txtBenutzerkennung"]"""))) # Change the xpath according to the element's xpath of your banks website
 
         # Writes the username and password into the login form
-        element_username = self.driver.find_element_by_xpath("""//*[@id="vrkennungalias"]""")
+        element_username = self.driver.find_element_by_xpath("""//*[@id="txtBenutzerkennung"]""")
         element_username.send_keys(username)
-        element_password = self.driver.find_element_by_xpath("""//*[@id="pin"]""")
+        element_password = self.driver.find_element_by_xpath("""//*[@id="pwdPin"]""")
         element_password.send_keys(password)
         
         # Clicks the login button
-        login_button = self.driver.find_element_by_xpath("""//*[@id="button_login"]""")
+        login_button = self.driver.find_element_by_xpath("""//*[@id="xview-anmelden"]""")
         login_button.click()
 
         # Waits for a specified element to render to make sure the page is fully loaded
-        WebDriverWait(self.driver, 15).until(EC.presence_of_element_located((By.XPATH, """/html/body/div[2]/div[3]/div[2]/div[1]/div/div/div/div/div/div/h1""")))
+        WebDriverWait(self.driver, 15).until(EC.presence_of_element_located((By.XPATH, """/html/body/div[2]/div/div[1]/div[3]/div[1]/div[3]/div[2]/div/table/tbody/tr/td/div/table/tbody/tr[1]/td/span/div/div/div[2]/div/div/div/div[3]/div[2]/div[2]/div/div[3]/div/div/div/div[3]/div/div/table/tbody/tr/td[3]/div/div""")))
 
         # Reads out balances in the bank accounts
-        self.balance1 = float(self.driver.find_element_by_xpath("""/html/body/div[2]/div[3]/div[2]/div[1]/div/form/div[2]/table/tbody[1]/tr[2]/td[4]""").text.strip().split(" ")[0].replace(".", "").replace(",", "."))
-        self.balance2 = float(self.driver.find_element_by_xpath("""/html/body/div[2]/div[3]/div[2]/div[1]/div/form/div[2]/table/tbody[2]/tr[2]/td[4]""").text.strip().split(" ")[0].replace(".", "").replace(",", "."))
+        self.balance = float(self.driver.find_element_by_xpath("""/html/body/div[2]/div/div[1]/div[3]/div[1]/div[3]/div[2]/div/table/tbody/tr/td/div/table/tbody/tr[1]/td/span/div/div/div[2]/div/div/div/div[3]/div[2]/div[2]/div/div[3]/div/div/div/div[3]/div/div/table/tbody/tr/td[3]/div/div""").text.strip().split(" ")[0].replace(".", "").replace(",", "."))
 
         # Quits browser
         self.driver.quit()
@@ -119,7 +118,7 @@ class FinancialAnalyzer:
         self.cash = float(cash)
 
         current_year = datetime.date(datetime.now()).year
-        bank_balance = self.balance1 + self.balance2
+        bank_balance = self.balance
         investments = 0 # Fixed rate of investments each month
         assets_total = self.cash + bank_balance + investments
 
@@ -157,7 +156,7 @@ class FinancialAnalyzer:
 
 
 if __name__ == "__main__":
-    path = "/Users/marcanders/Desktop/Projects/Programming/FinancialAnalysis/monthly_budget.xlsx" # Add the path to your Excel file here
+    path = "/Users/marcanders/Projects/FinancialAnalysis/monthly_budget.xlsx" # Add the path to your Excel file here
     url = os.environ.get("BK_URL") # Add your bank's url here
     username = os.environ.get("BK_UN") # Add your bank's username here
     password = os.environ.get("BK_PW") # Add your bank's password here
